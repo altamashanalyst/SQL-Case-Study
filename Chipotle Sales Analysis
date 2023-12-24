@@ -1,18 +1,22 @@
 SELECT * FROM Chipotle
 
 --Which was the most-ordered item?
+
 select item_name from (select top 1 item_name,count(*) as most_ordered from chipotle
 GROUP BY item_name
 ORDER by most_ordered DESC) a
 GO
 
 --For the most-ordered item, how many items were ordered?
+
 SELECT top 1 item_name, count(*) items_ordered from chipotle
 group by item_name
 order by items_ordered desc
 
 GO
+
 --What was the most ordered item in the choice_description column?
+
 select choice_description from(select top 1 choice_description,COUNT(*) most_ordered
 from chipotle
 where choice_description <> 'NULL'
@@ -20,20 +24,23 @@ group by choice_description
 order by most_ordered DESC) A 
 
 go
+
 --How many items were ordered in total?
+
 select count(distinct item_name) as total_items
 from chipotle
 
 GO
+
 --Turn the item price into a float
 --select cast(REPLACE(item_price,'$','') as float) from chipotle
 go
 alter TABLE chipotle add price FLOAT
 go
-select * from Chipotle
-go
 update chipotle
 set price =  cast(REPLACE(item_price,'$','') as float)
+go
+select * from Chipotle
 GO
 
 --How much was the revenue for the period in the dataset?
